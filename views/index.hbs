@@ -8,27 +8,44 @@
 	<script type="text/javascript">
 		
 		const wsUrl = "ws://localhost:8080/";
-		const webSocket;
+		let webSocket;
 
 		function init() {
 			webSocket = new WebSocket(wsUrl);
 			webSocket.onopen = (evt) => {
-				console.log("OnOpen Event");
+				onOpen(evt)
 			};
 			webSocket.onclose = (evt) => {
-				console.log("OnClose Event");
+				onClose(evt)
 			};
 			webSocket.onmessage = (evt) => {
-				console.log(evt.data);
+				onMessage(evt)
 			};
 			webSocket.onerror = (evt) => {
-				console.log("OnError Event");
+				onError(evt)
 			};
+		}
+		
+		function onOpen(event){
+			console.log("OnOpen Event");
+		}
+
+		function onClose(event) {
+			console.log("OnClose Event");
+		}
+
+		function onError(event) {
+			console.log("OnError Event");
 		}
 
 		function sendMessage() {
 			webSocket.send(textBox.value);
 		}
+
+		function onMessage(event) {
+			console.log(event.data);
+		}
+
 		window.addEventListener("load", init, false);
 	</script>
 	<textarea id="textBox" rows="5" cols="20"></textarea>
