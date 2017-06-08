@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web Socket Test Page</title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		const wsUrl = "ws://localhost:8080/";
+		const webSocket;
+
+		function init() {
+			webSocket = new WebSocket(wsUrl);
+			webSocket.onopen = (evt) => {
+				console.log("OnOpen Event");
+			};
+			webSocket.onclose = (evt) => {
+				console.log("OnClose Event");
+			};
+			webSocket.onmessage = (evt) => {
+				console.log(evt.data);
+			};
+			webSocket.onerror = (evt) => {
+				console.log("OnError Event");
+			};
+		}
+
+		function sendMessage() {
+			webSocket.send(textBox.value);
+		}
+		window.addEventListener("load", init, false);
+	</script>
+	<textarea id="textBox" rows="5" cols="20"></textarea>
+	<button onclick="sendMessage();">Send Message</button>
+
+
+</body>
+</html>
